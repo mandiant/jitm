@@ -1,0 +1,12 @@
+# Ignore visual studio directories
+.vs
+Release
+
+# Ignore temporary files
+*.log
+*.tlog
+*.obj
+*.pdb
+
+# Ignore compiled python files
+*.pyc
