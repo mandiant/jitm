@@ -245,7 +245,6 @@ BOOL _CDNet::LoadTablesInfo(
     for (std::vector<PTableInfo>::iterator it = Tables.begin(); it != Tables.end(); ++it)
     {
         DWORD nNumberOfRows = 0;
-        DWORD nOffset = nStartOfNumberOfRows + nCount * sizeof(DWORD);
         if (!ReadFile(hFile, &nNumberOfRows, sizeof(DWORD), &nBytes, NULL))
             return FALSE;
         (*it)->nNumberOfRows = nNumberOfRows;
@@ -309,6 +308,9 @@ BOOL _CDNet::LoadTablesInfo(
         Tables.pop_back();
         delete ti;
     }
+
+    std::cout << "[*] Loading tables info done" << std::endl;
+	
     return this->Methods.size() > 0;
 }
 
