@@ -1,6 +1,7 @@
 # What is this?
 
-**NOTE: This tool is designed to parse and execute malicious payloads. Please take the necessary precautions and only use this tool in a controlled environment like a sandbox or a Virtual Machine**
+- **Detail blog**: [Bypassing MassLogger Anti-Analysis — a Man-in-the-Middle Approach](https://www.fireeye.com/blog/threat-research/2020/08/bypassing-masslogger-anti-analysis-man-in-the-middle-approach.html)
+- **NOTE: This tool is designed to parse and execute malicious payloads. Please take the necessary precautions and only use this tool in a controlled environment like a sandbox or a Virtual Machine**
 
 JITM is an automated tool to bypass the JIT Hooking protection on a .NET sample. JIT Hooking is the technique where the sample hooks the `compileMethod()` function. With the hook in place, the sample can easily replace the MSIL with a decrypted/deobfuscated version at run time. This makes static analysis almost impossible.
 
