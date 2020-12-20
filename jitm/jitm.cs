@@ -45,6 +45,7 @@ namespace jitm
                     MethodInfo[] methods = c.GetMethods();
                     foreach (MethodInfo method in methods)
                     {
+                        if (method.IsAbstract || method.ContainsGenericParameters) continue;
                         try
                         {
                             RuntimeHelpers.PrepareMethod(method.MethodHandle);

@@ -206,8 +206,11 @@ typedef struct _StreamInfo
 
 typedef struct _DNetTablesHeader
 {
-    DWORD    nReserved;
-    DWORD    nUnknown;
+    DWORD    nReserved_1;
+    BYTE     nMajorVersion;
+    BYTE     nMinorVersion;
+    BYTE     nHeapOffsetSizes;
+    BYTE     nReserved_2;
     DWORD    nMaskValidLow;
     DWORD    nMaskValidHigh;
     DWORD    nMaskSortedLow;
@@ -239,14 +242,14 @@ typedef struct _DNetTableRow_Module : Row
 {
     typedef struct __DNetTableRow_Module
     {
-        WORD nGeneration;
-        WORD nNameRVA;
-        WORD nMVID;
-        WORD nEncId;
-        WORD nEncBaseId;
+        WORD  nGeneration;
+        DWORD nNameRVA;
+        WORD  nMVID;
+        WORD  nEncId;
+        WORD  nEncBaseId;
     } __INTERNAL;
     WORD    nGeneration;
-    WORD    nNameRVA;
+    DWORD   nNameRVA;
     WORD    nMVID;
     WORD    nEncId;
     WORD    nEncBaseId;
@@ -258,7 +261,7 @@ typedef struct _DNetTableRow_Module : Row
         DWORD nBytes;
         if (INVALID_SET_FILE_POINTER == SetFilePointer(hFile, nOffset, 0, FILE_BEGIN))
             return FALSE;
-        if (!ReadFile(hFile, &data, sizeof(data), &nBytes, NULL))
+        if (!ReadFile(hFile, &data, sizeof data, &nBytes, NULL))
             return FALSE;
 
         this->nGeneration = data.nGeneration;
@@ -275,12 +278,12 @@ typedef struct _DNetTableRow_TypeRef : Row
     typedef struct __DNetTableRow_TypeRef
     {
         WORD    nResolutionScope;
-        WORD    nNameRVA;
-        WORD    nNamespace;
+        DWORD   nNameRVA;
+        DWORD   nNamespace;
     } __INTERNAL;
     WORD    nResolutionScope;
-    WORD    nNameRVA;
-    WORD    nNamespace;
+    DWORD   nNameRVA;
+    DWORD   nNamespace;
 
     DWORD Size() { return sizeof(__INTERNAL); }
     BOOL Load(HANDLE hFile, DWORD nOffset)
@@ -306,16 +309,16 @@ typedef struct _DNetTableRow_TypeDef : Row
 {
     typedef struct __DNetTableRow_TypeDef
     {
-        DWORD    nFlags;
-        WORD    nNameRVA;
-        WORD    nNamespace;
+        DWORD   nFlags;
+        DWORD   nNameRVA;
+        DWORD   nNamespace;
         WORD    nExtends;
         WORD    nFieldList;
         WORD    nMethodList;
     } __INTERNAL;
     DWORD   nFlags;
-    WORD    nNameRVA;
-    WORD    nNamespace;
+    DWORD   nNameRVA;
+    DWORD   nNamespace;
     WORD    nExtends;
     WORD    nFieldList;
     WORD    nMethodList;
@@ -346,11 +349,11 @@ typedef struct _DNetTableRow_Field : Row
     typedef struct __DNetTableRow_Field
     {
         WORD    nFlags;
-        WORD    nNameRVA;
+        DWORD   nNameRVA;
         WORD    nSignature;
     } __INTERNAL;
     WORD    nFlags;
-    WORD    nNameRVA;
+    DWORD   nNameRVA;
     WORD    nSignature;
     DWORD Size() { return sizeof(__INTERNAL); }
     BOOL Load(HANDLE hFile, DWORD nOffset)
@@ -374,17 +377,17 @@ typedef struct _DNetTableRow_MethodDef : Row
 {
     typedef struct __DNetTableRow_MethodDef
     {
-        DWORD    nRVA;
+        DWORD   nRVA;
         WORD    nImplFlags;
         WORD    nFlags;
-        WORD    nNameRVA;
+        DWORD   nNameRVA;
         WORD    nSignature;
         WORD    nParamList;
     } __INTERNAL;
     DWORD   nRVA;
     WORD    nImplFlags;
     WORD    nFlags;
-    WORD    nNameRVA;
+    DWORD   nNameRVA;
     WORD    nSignature;
     WORD    nParamList;
     DWORD   nMID;
